@@ -1,0 +1,546 @@
+// ----------------------------------------------------------------------------
+// SkyChartExporter - SCE-Names.jsh
+//
+// 天体名・星座名・天体種別の日本語/英語辞書。
+// 日本語名は一般に定着しているものだけを収録し、確信の持てない名称は
+// 収録しない（英語名または カタログ番号にフォールバックする）。
+// ----------------------------------------------------------------------------
+
+#ifndef __SCE_Names_jsh
+#define __SCE_Names_jsh
+
+/*
+ * 88星座: 略号(大文字) → [日本語名, 英語名(ラテン名)]
+ */
+var SCE_CONSTELLATIONS = {
+   AND: ["アンドロメダ座", "Andromeda"],
+   ANT: ["ポンプ座", "Antlia"],
+   APS: ["ふうちょう座", "Apus"],
+   AQR: ["みずがめ座", "Aquarius"],
+   AQL: ["わし座", "Aquila"],
+   ARA: ["さいだん座", "Ara"],
+   ARI: ["おひつじ座", "Aries"],
+   AUR: ["ぎょしゃ座", "Auriga"],
+   BOO: ["うしかい座", "Boötes"],
+   CAE: ["ちょうこくぐ座", "Caelum"],
+   CAM: ["きりん座", "Camelopardalis"],
+   CNC: ["かに座", "Cancer"],
+   CVN: ["りょうけん座", "Canes Venatici"],
+   CMA: ["おおいぬ座", "Canis Major"],
+   CMI: ["こいぬ座", "Canis Minor"],
+   CAP: ["やぎ座", "Capricornus"],
+   CAR: ["りゅうこつ座", "Carina"],
+   CAS: ["カシオペヤ座", "Cassiopeia"],
+   CEN: ["ケンタウルス座", "Centaurus"],
+   CEP: ["ケフェウス座", "Cepheus"],
+   CET: ["くじら座", "Cetus"],
+   CHA: ["カメレオン座", "Chamaeleon"],
+   CIR: ["コンパス座", "Circinus"],
+   COL: ["はと座", "Columba"],
+   COM: ["かみのけ座", "Coma Berenices"],
+   CRA: ["みなみのかんむり座", "Corona Australis"],
+   CRB: ["かんむり座", "Corona Borealis"],
+   CRV: ["からす座", "Corvus"],
+   CRT: ["コップ座", "Crater"],
+   CRU: ["みなみじゅうじ座", "Crux"],
+   CYG: ["はくちょう座", "Cygnus"],
+   DEL: ["いるか座", "Delphinus"],
+   DOR: ["かじき座", "Dorado"],
+   DRA: ["りゅう座", "Draco"],
+   EQU: ["こうま座", "Equuleus"],
+   ERI: ["エリダヌス座", "Eridanus"],
+   FOR: ["ろ座", "Fornax"],
+   GEM: ["ふたご座", "Gemini"],
+   GRU: ["つる座", "Grus"],
+   HER: ["ヘルクレス座", "Hercules"],
+   HOR: ["とけい座", "Horologium"],
+   HYA: ["うみへび座", "Hydra"],
+   HYI: ["みずへび座", "Hydrus"],
+   IND: ["インディアン座", "Indus"],
+   LAC: ["とかげ座", "Lacerta"],
+   LEO: ["しし座", "Leo"],
+   LMI: ["こじし座", "Leo Minor"],
+   LEP: ["うさぎ座", "Lepus"],
+   LIB: ["てんびん座", "Libra"],
+   LUP: ["おおかみ座", "Lupus"],
+   LYN: ["やまねこ座", "Lynx"],
+   LYR: ["こと座", "Lyra"],
+   MEN: ["テーブルさん座", "Mensa"],
+   MIC: ["けんびきょう座", "Microscopium"],
+   MON: ["いっかくじゅう座", "Monoceros"],
+   MUS: ["はえ座", "Musca"],
+   NOR: ["じょうぎ座", "Norma"],
+   OCT: ["はちぶんぎ座", "Octans"],
+   OPH: ["へびつかい座", "Ophiuchus"],
+   ORI: ["オリオン座", "Orion"],
+   PAV: ["くじゃく座", "Pavo"],
+   PEG: ["ペガスス座", "Pegasus"],
+   PER: ["ペルセウス座", "Perseus"],
+   PHE: ["ほうおう座", "Phoenix"],
+   PIC: ["がか座", "Pictor"],
+   PSC: ["うお座", "Pisces"],
+   PSA: ["みなみのうお座", "Piscis Austrinus"],
+   PUP: ["とも座", "Puppis"],
+   PYX: ["らしんばん座", "Pyxis"],
+   RET: ["レチクル座", "Reticulum"],
+   SGE: ["や座", "Sagitta"],
+   SGR: ["いて座", "Sagittarius"],
+   SCO: ["さそり座", "Scorpius"],
+   SCL: ["ちょうこくしつ座", "Sculptor"],
+   SCT: ["たて座", "Scutum"],
+   SER: ["へび座", "Serpens"],
+   SEX: ["ろくぶんぎ座", "Sextans"],
+   TAU: ["おうし座", "Taurus"],
+   TEL: ["ぼうえんきょう座", "Telescopium"],
+   TRI: ["さんかく座", "Triangulum"],
+   TRA: ["みなみのさんかく座", "Triangulum Australe"],
+   TUC: ["きょしちょう座", "Tucana"],
+   UMA: ["おおぐま座", "Ursa Major"],
+   UMI: ["こぐま座", "Ursa Minor"],
+   VEL: ["ほ座", "Vela"],
+   VIR: ["おとめ座", "Virgo"],
+   VOL: ["とびうお座", "Volans"],
+   VUL: ["こぎつね座", "Vulpecula"]
+};
+
+/*
+ * バイエル符号のギリシャ文字略号 → ギリシャ文字
+ */
+var SCE_GREEK = {
+   alf: "α", bet: "β", gam: "γ", del: "δ", eps: "ε", zet: "ζ", eta: "η", tet: "θ",
+   iot: "ι", kap: "κ", lam: "λ", mu: "μ", nu: "ν", ksi: "ξ", omi: "ο", pi: "π",
+   rho: "ρ", sig: "σ", tau: "τ", ups: "υ", phi: "φ", chi: "χ", psi: "ψ", ome: "ω"
+};
+
+var SCE_SUPERSCRIPT_DIGITS = ["⁰", "¹", "²", "³", "⁴", "⁵", "⁶", "⁷", "⁸", "⁹"];
+
+/*
+ * 恒星の固有名: 英語名(NamedStars.csv の Common name) → 日本語表記
+ */
+var SCE_STAR_NAMES_JA = {
+   "Sirius": "シリウス",
+   "Canopus": "カノープス",
+   "Arcturus": "アークトゥルス",
+   "Rigil Kentaurus": "リギル・ケンタウルス",
+   "Vega": "ベガ",
+   "Capella": "カペラ",
+   "Rigel": "リゲル",
+   "Procyon": "プロキオン",
+   "Betelgeuse": "ベテルギウス",
+   "Achernar": "アケルナル",
+   "Hadar": "ハダル",
+   "Altair": "アルタイル",
+   "Aldebaran": "アルデバラン",
+   "Antares": "アンタレス",
+   "Spica": "スピカ",
+   "Pollux": "ポルックス",
+   "Fomalhaut": "フォーマルハウト",
+   "Mimosa": "ミモザ",
+   "Deneb": "デネブ",
+   "Acrux": "アクルックス",
+   "Toliman": "トリマン",
+   "Regulus": "レグルス",
+   "Adhara": "アダーラ",
+   "Shaula": "シャウラ",
+   "Bellatrix": "ベラトリックス",
+   "Gacrux": "ガクルックス",
+   "Elnath": "エルナト",
+   "Alnilam": "アルニラム",
+   "Miaplacidus": "ミアプラキドゥス",
+   "Alnair": "アルナイル",
+   "Alioth": "アリオト",
+   "Mirfak": "ミルファク",
+   "Dubhe": "ドゥーベ",
+   "Kaus Australis": "カウス・アウストラリス",
+   "Wezen": "ウェズン",
+   "Sargas": "サルガス",
+   "Alkaid": "アルカイド",
+   "Atria": "アトリア",
+   "Alnitak": "アルニタク",
+   "Menkalinan": "メンカリナン",
+   "Castor": "カストル",
+   "Alhena": "アルヘナ",
+   "Peacock": "ピーコック",
+   "Mirzam": "ミルザム",
+   "Alphard": "アルファルド",
+   "Algieba": "アルギエバ",
+   "Diphda": "ディフダ",
+   "Hamal": "ハマル",
+   "Avior": "アヴィオール",
+   "Polaris": "ポラリス（北極星）",
+   "Mirach": "ミラク",
+   "Menkent": "メンケント",
+   "Alpheratz": "アルフェラッツ",
+   "Saiph": "サイフ",
+   "Rasalhague": "ラスアルハゲ",
+   "Nunki": "ヌンキ",
+   "Kochab": "コカブ",
+   "Almach": "アルマク",
+   "Algol": "アルゴル",
+   "Denebola": "デネボラ",
+   "Suhail": "スハイル",
+   "Mizar": "ミザール",
+   "Schedar": "シェダル",
+   "Eltanin": "エルタニン",
+   "Sadr": "サドル",
+   "Alphecca": "アルフェッカ",
+   "Naos": "ナオス",
+   "Caph": "カフ",
+   "Dschubba": "ジュバ",
+   "Merak": "メラク",
+   "Ankaa": "アンカー",
+   "Enif": "エニフ",
+   "Mintaka": "ミンタカ",
+   "Sabik": "サビク",
+   "Scheat": "シェアト",
+   "Phecda": "フェクダ",
+   "Aludra": "アルドラ",
+   "Alderamin": "アルデラミン",
+   "Markab": "マルカブ",
+   "Menkar": "メンカル",
+   "Zosma": "ゾスマ",
+   "Arneb": "アルネブ",
+   "Gienah": "ギェナー",
+   "Ascella": "アスケラ",
+   "Zubeneschamali": "ズベン・エス・カマリ",
+   "Acrab": "アクラブ",
+   "Unukalhai": "ウヌクアルハイ",
+   "Sheratan": "シェラタン",
+   "Phact": "ファクト",
+   "Lesath": "レサト",
+   "Kaus Media": "カウス・メディア",
+   "Kaus Borealis": "カウス・ボレアリス",
+   "Ruchbah": "ルクバー",
+   "Muphrid": "ムフリッド",
+   "Tarazed": "タラゼド",
+   "Porrima": "ポリマ",
+   "Zubenelgenubi": "ズベン・エル・ゲヌビ",
+   "Cursa": "クルサ",
+   "Vindemiatrix": "ビンデミアトリックス",
+   "Rastaban": "ラスタバン",
+   "Algenib": "アルゲニブ",
+   "Alcyone": "アルキオネ",
+   "Cor Caroli": "コル・カロリ",
+   "Gomeisa": "ゴメイサ",
+   "Sadalsuud": "サダルスウド",
+   "Sadalmelik": "サダルメリク",
+   "Zaurak": "ザウラク",
+   "Algorab": "アルゴラブ",
+   "Albireo": "アルビレオ",
+   "Mebsuta": "メブスタ",
+   "Pherkad": "フェルカド",
+   "Alcor": "アルコル",
+   "Thuban": "トゥバン",
+   "Megrez": "メグレズ",
+   "Rasalgethi": "ラスアルゲティ",
+   "Sulafat": "スラファト",
+   "Sheliak": "シェリアク",
+   "Electra": "エレクトラ",
+   "Maia": "マイア",
+   "Merope": "メローペ",
+   "Taygeta": "タイゲタ",
+   "Atlas": "アトラス",
+   "Mira": "ミラ",
+   "Izar": "イザール",
+   "Garnet Star": "ガーネット・スター",
+   "Edasich": "エダシク",
+   "Errai": "エライ",
+   "Alfirk": "アルフィルク",
+   "Nashira": "ナシラ",
+   "Deneb Algedi": "デネブ・アルゲディ",
+   "Alshain": "アルシャイン",
+   "Meissa": "メイサ",
+   "Tejat": "テジャト",
+   "Propus": "プロプス",
+   "Wasat": "ワサト",
+   "Adhafera": "アダフェラ",
+   "Alkes": "アルケス",
+   "Achird": "アキルド",
+   "Segin": "セギン",
+   "Hassaleh": "ハッサレー",
+   "Almaaz": "アルマーズ",
+   "Haedus": "ハエドゥス",
+   "Nekkar": "ネッカル",
+   "Seginus": "セギヌス",
+   "Alkalurops": "アルカルロプス",
+   "Kornephoros": "コルネフォロス",
+   "Yed Prior": "イェド・プリオル",
+   "Yed Posterior": "イェド・ポステリオル",
+   "Nihal": "ニハル",
+   "Furud": "フルド",
+   "Aspidiske": "アスピディスケ",
+   "Kraz": "クラズ",
+   "Talitha": "タリタ",
+   "Muscida": "ムシダ",
+   "Alula Borealis": "アルラ・ボレアリス",
+   "Alula Australis A": "アルラ・アウストラリス",
+   "Tania Borealis": "タニア・ボレアリス",
+   "Tania Australis": "タニア・アウストラリス",
+   "Chertan": "シェルタン",
+   "Acubens": "アクベンス",
+   "Asellus Borealis": "アセルス・ボレアリス",
+   "Asellus Australis": "アセルス・アウストラリス",
+   "Skat": "スカト",
+   "Matar": "マタル",
+   "Homam": "ホマム",
+   "Biham": "ビハム",
+   "Sadalbari": "サダルバリ",
+   "Sadachbia": "サダクビア",
+   "Albali": "アルバリ",
+   "Dabih": "ダビー",
+   "Algedi": "アルゲディ",
+   "Jabbah": "ジャバー",
+   "Alniyat": "アルニヤト",
+   "Fang": "ファング",
+   "Graffias": "グラフィアス",
+   "Kaffaljidhma": "カファルジドマ",
+   "Baten Kaitos": "バテン・カイトス",
+   "Deneb Kaitos": "デネブ・カイトス",
+   "Mesarthim": "メサルティム",
+   "Botein": "ボテイン",
+   "Ain": "アイン",
+   "Prima Hyadum": "プリマ・ヒアドゥム",
+   "Secunda Hyadum": "セクンダ・ヒアドゥム",
+   "Rotanev": "ロタネブ",
+   "Sualocin": "スアロキン",
+   "Alrescha": "アルリシャ",
+   "Alrisha": "アルリシャ",
+   "Gemma": "ゲンマ",
+   "Zavijava": "ザヴィヤヴァ",
+   "Syrma": "シルマ",
+   "Heze": "ヘゼ",
+   "Minkar": "ミンカル",
+   "Kitalpha": "キタルファ"
+};
+
+/*
+ * 天体種別キー → [日本語, 英語]
+ */
+var SCE_TYPES = {
+   galaxy:           ["銀河", "Galaxy"],
+   galaxyPair:       ["銀河ペア", "Galaxy pair"],
+   galaxyTriplet:    ["三重銀河", "Galaxy triplet"],
+   galaxyGroup:      ["銀河群", "Galaxy group"],
+   interactingGalaxy:["相互作用銀河", "Interacting galaxies"],
+   galaxyCluster:    ["銀河団", "Galaxy cluster"],
+   quasar:           ["クエーサー", "Quasar"],
+   starCluster:      ["星団", "Star cluster"],
+   molecularCloud:   ["分子雲", "Molecular cloud"],
+   openCluster:      ["散開星団", "Open cluster"],
+   globularCluster:  ["球状星団", "Globular cluster"],
+   planetaryNebula:  ["惑星状星雲", "Planetary nebula"],
+   nebula:           ["星雲", "Nebula"],
+   emissionNebula:   ["散光星雲", "Emission nebula"],
+   hii:              ["散光星雲(HII領域)", "HII region"],
+   reflectionNebula: ["反射星雲", "Reflection nebula"],
+   clusterNebula:    ["星雲を伴う星団", "Cluster with nebula"],
+   association:      ["アソシエーション", "Stellar association"],
+   snr:              ["超新星残骸", "Supernova remnant"],
+   darkNebula:       ["暗黒星雲", "Dark nebula"],
+   starCloud:        ["恒星雲", "Star cloud"],
+   doubleStar:       ["二重星", "Double star"],
+   asterism:         ["アステリズム", "Asterism"],
+   star:             ["恒星", "Star"],
+   other:            ["その他", "Other"]
+};
+
+/*
+ * カタログの種別文字列 → 種別キー
+ */
+function sceTypeKey( typeStr )
+{
+   if ( !typeStr )
+      return "other";
+   let t = typeStr.trim();
+   switch ( t )
+   {
+   case "Galaxy":               return "galaxy";
+   case "Galaxy pair":          return "galaxyPair";
+   case "Galaxy triplet":       return "galaxyTriplet";
+   case "Group of galaxies":    return "galaxyGroup";
+   case "Open cluster":
+   case "OpenCluster":
+   case "Cluster*":             return "openCluster";
+   case "Globular cluster":
+   case "GlobCluster":          return "globularCluster";
+   case "Planetary nebula":
+   case "PlanetaryNeb":         return "planetaryNebula";
+   case "Nebula":
+   case "ISM":
+   case "HIshell":              return "nebula";
+   case "Emission nebula":      return "emissionNebula";
+   case "HII region":
+   case "HIIReg":               return "hii";
+   case "Reflection nebula":    return "reflectionNebula";
+   case "Cluster with nebula":  return "clusterNebula";
+   case "Stellar association":  return "association";
+   case "Supernova remnant":
+   case "SNR":                  return "snr";
+   case "DarkNeb":              return "darkNebula";
+   case "Ae*":
+   case "WolfRayet*":           return "star";
+   }
+   // Caldwell の SIMBAD 由来の銀河系種別
+   if ( /^(AGN|BLLac|Blazar|EmissionG|GinPair|GtowardsCl|GtowardsGroup|HIIG|LINER|LowSurfBrghtG|Radio|RadioG|Seyfert|Seyfert2|Galaxy)/.test( t ) )
+      return "galaxy";
+   return "other";
+}
+
+/*
+ * 星雲・星団・銀河の名称辞書。
+ * キー: "M31" のようなメシエ番号、"NGC7000"/"IC1805" のような正規化した
+ * NGC/IC 番号、"C9" のようなコールドウェル番号、または補助カタログの ID。
+ * ja: 日本語名、en: 英語名（カタログに通称が無い場合の補完用）
+ */
+var SCE_DSO_NAMES = {
+   // --- メシエ天体 ---
+   "M1":   { ja: "かに星雲" },
+   "M6":   { ja: "バタフライ星団" },
+   "M7":   { ja: "トレミー星団" },
+   "M8":   { ja: "干潟星雲" },
+   "M11":  { ja: "野鴨星団" },
+   "M13":  { ja: "ヘルクレス座球状星団" },
+   "M16":  { ja: "わし星雲" },
+   "M17":  { ja: "オメガ星雲" },
+   "M20":  { ja: "三裂星雲" },
+   "M24":  { ja: "いて座スタークラウド", en: "Sagittarius Star Cloud" },
+   "M27":  { ja: "亜鈴状星雲" },
+   "M31":  { ja: "アンドロメダ銀河" },
+   "M33":  { ja: "さんかく座銀河" },
+   "M42":  { ja: "オリオン大星雲" },
+   "M43":  { ja: "デ・メランの星雲" },
+   "M44":  { ja: "プレセペ星団" },
+   "M45":  { ja: "プレアデス星団（すばる）" },
+   "M51":  { ja: "子持ち銀河" },
+   "M57":  { ja: "環状星雲（リング星雲）" },
+   "M63":  { ja: "ひまわり銀河" },
+   "M64":  { ja: "黒眼銀河" },
+   "M65":  { ja: "しし座の三つ子銀河" },
+   "M66":  { ja: "しし座の三つ子銀河" },
+   "M74":  { ja: "ファントム銀河", en: "Phantom Galaxy" },
+   "M76":  { ja: "小亜鈴状星雲" },
+   "M81":  { ja: "ボーデの銀河" },
+   "M82":  { ja: "葉巻銀河" },
+   "M83":  { ja: "南の回転花火銀河" },
+   "M87":  { ja: "おとめ座A", en: "Virgo A" },
+   "M97":  { ja: "ふくろう星雲" },
+   "M101": { ja: "回転花火銀河" },
+   "M102": { ja: "スピンドル銀河" },
+   "M104": { ja: "ソンブレロ銀河" },
+
+   // --- NGC / IC ---
+   "NGC104":  { ja: "きょしちょう座47" },
+   "NGC253":  { ja: "ちょうこくしつ座銀河" },
+   "NGC281":  { ja: "パックマン星雲", en: "Pacman Nebula" },
+   "NGC292":  { ja: "小マゼラン雲" },
+   "NGC457":  { ja: "ふくろう星団（ET星団）" },
+   "NGC869":  { ja: "二重星団 h", en: "Double Cluster (h Per)" },
+   "NGC884":  { ja: "二重星団 χ", en: "Double Cluster (χ Per)" },
+   "NGC1435": { ja: "メローペ星雲" },
+   "NGC1499": { ja: "カリフォルニア星雲" },
+   "NGC1909": { ja: "魔女の横顔星雲" },
+   "NGC1977": { ja: "ランニングマン星雲" },
+   "NGC2024": { ja: "燃える木星雲", en: "Flame Nebula" },
+   "NGC2070": { ja: "タランチュラ星雲" },
+   "NGC2174": { ja: "モンキー星雲" },
+   "NGC2237": { ja: "ばら星雲" },
+   "NGC2238": { ja: "ばら星雲" },
+   "NGC2239": { ja: "ばら星雲" },
+   "NGC2244": { ja: "ばら星雲の散開星団", en: "Rosette Nebula Cluster" },
+   "NGC2246": { ja: "ばら星雲" },
+   "NGC2261": { ja: "ハッブルの変光星雲" },
+   "NGC2264": { ja: "クリスマスツリー星団・コーン星雲" },
+   "NGC2359": { ja: "トールのかぶと星雲", en: "Thor's Helmet" },
+   "NGC2392": { ja: "エスキモー星雲" },
+   "NGC3242": { ja: "木星状星雲" },
+   "NGC3372": { ja: "イータカリーナ星雲" },
+   "NGC3628": { ja: "ハンバーガー銀河", en: "Hamburger Galaxy" },
+   "NGC4038": { ja: "アンテナ銀河" },
+   "NGC4039": { ja: "アンテナ銀河" },
+   "NGC4565": { ja: "ニードル銀河" },
+   "NGC4631": { ja: "くじら銀河" },
+   "NGC4755": { ja: "宝石箱星団" },
+   "NGC5128": { ja: "ケンタウルス座A" },
+   "NGC5139": { ja: "オメガ星団（ケンタウルス座ω）" },
+   "NGC6334": { ja: "出目金星雲", en: "Cat's Paw Nebula" },
+   "NGC6543": { ja: "キャッツアイ星雲" },
+   "NGC6826": { ja: "まばたき星雲" },
+   "NGC6888": { ja: "三日月星雲" },
+   "NGC6946": { ja: "花火銀河" },
+   "NGC6960": { ja: "網状星雲（西）", en: "West Veil Nebula" },
+   "NGC6979": { ja: "ピッカリングの三角形", en: "Pickering's Triangle" },
+   "NGC6992": { ja: "網状星雲（東）", en: "East Veil Nebula" },
+   "NGC6995": { ja: "網状星雲（東）", en: "East Veil Nebula" },
+   "NGC7000": { ja: "北アメリカ星雲" },
+   "NGC7009": { ja: "土星状星雲" },
+   "NGC7023": { ja: "あやめ星雲" },
+   "NGC7293": { ja: "らせん星雲" },
+   "NGC7635": { ja: "バブル星雲" },
+   "NGC7662": { ja: "ブルースノーボール星雲" },
+   "NGC7789": { ja: "キャロラインのばら", en: "Caroline's Rose" },
+   "IC405":   { ja: "まがたま星雲" },
+   "IC410":   { ja: "おたまじゃくし星雲", en: "Tadpoles Nebula" },
+   "IC434":   { ja: "馬頭星雲" },
+   "IC443":   { ja: "くらげ星雲", en: "Jellyfish Nebula" },
+   "IC1396":  { ja: "象の鼻星雲", en: "Elephant's Trunk Nebula" },
+   "IC1805":  { ja: "ハート星雲", en: "Heart Nebula" },
+   "IC1848":  { ja: "胎児星雲", en: "Soul Nebula" },
+   "IC2118":  { ja: "魔女の横顔星雲" },
+   "IC2177":  { ja: "かもめ星雲", en: "Seagull Nebula" },
+   "IC2602":  { ja: "南のプレアデス" },
+   "IC4604":  { ja: "へびつかい座ρ星付近の星雲" },
+   "IC5070":  { ja: "ペリカン星雲" },
+   "IC5146":  { ja: "まゆ星雲" },
+
+   // --- コールドウェル（NGC/IC 番号を持たないもの） ---
+   "C9":   { ja: "ケーブ星雲" },
+   "C14":  { ja: "二重星団（h-χ）" },
+   "C41":  { ja: "ヒアデス星団" },
+   "C99":  { ja: "コールサック" },
+
+   // --- 補助カタログ ---
+   "LMC":     { ja: "大マゼラン雲", en: "Large Magellanic Cloud" },
+   "Mel111":  { ja: "かみのけ座散開星団", en: "Coma Star Cluster" },
+   "Mel20":   { ja: "ペルセウス座α星団", en: "Alpha Persei Cluster" },
+   "Cr399":   { ja: "コートハンガー星団", en: "Coathanger (Brocchi's Cluster)" },
+   "Sh2-240": { ja: "スパゲッティ星雲", en: "Spaghetti Nebula (Simeis 147)" },
+   "Sh2-101": { ja: "チューリップ星雲", en: "Tulip Nebula" },
+   "Sh2-129": { en: "Flying Bat Nebula" },
+   "Sh2-308": { en: "Dolphin Head Nebula" }
+};
+
+/*
+ * 補助カタログ: 同梱カタログに含まれない著名天体。
+ * ra, dec: 度（J2000）、diam: 分角、type: 種別キー
+ */
+var SCE_SUPPLEMENT = [
+   { id: "LMC",     label: "LMC",     ra:  80.894, dec: -69.756, diam: 645, axisRatio: 1.17, type: "galaxy" },
+   { id: "Mel111",  label: "Mel 111", ra: 186.250, dec:  26.000, diam: 275, type: "openCluster" },
+   { id: "Mel20",   label: "Mel 20",  ra:  51.750, dec:  49.867, diam: 185, type: "openCluster" },
+   { id: "Cr399",   label: "Cr 399",  ra: 291.350, dec:  20.180, diam:  60, type: "asterism" },
+   { id: "Sh2-240", label: "Sh2-240", ra:  84.750, dec:  27.833, diam: 180, type: "snr" },
+   { id: "Sh2-101", label: "Sh2-101", ra: 300.000, dec:  35.283, diam:  16, type: "hii" },
+   { id: "Sh2-129", label: "Sh2-129", ra: 317.950, dec:  59.950, diam: 140, type: "hii" },
+   { id: "Sh2-308", label: "Sh2-308", ra: 103.554, dec: -23.928, diam:  40, type: "emissionNebula" }
+];
+
+/*
+ * NGC/IC 番号を持たない一部のメシエ天体の種別
+ */
+var SCE_MESSIER_TYPES = {
+   "M24": "starCloud",
+   "M40": "doubleStar",
+   "M45": "openCluster",
+   "M73": "asterism"
+};
+
+/*
+ * 直径が欠けている天体の補完値（分角）
+ */
+var SCE_SIZE_FIXUPS = {
+   "C41": 330,   // ヒアデス星団
+   "C99": 420,   // コールサック
+   "C9":  50     // ケーブ星雲（カタログ値は核部のみ）
+};
+
+#endif   // __SCE_Names_jsh
